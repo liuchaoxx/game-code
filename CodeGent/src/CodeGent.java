@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package code;
+
+
+import code.message.ClzzInfo;
+import code.message.XmlUtil;
+import java.util.List;
 
 /**
  *
@@ -16,6 +20,9 @@ public class CodeGent {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        String path = "E:\\workspace\\game-code\\message.xml";
+        List<ClzzInfo> infos = XmlUtil.ReadClazzInfo(path);
+        System.out.println("info size == "+ infos.size() );
     }
     
 }
