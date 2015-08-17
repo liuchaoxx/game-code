@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+<bean name="EquipInfo" describe="装备信息">
+    <field type="int" describe="装备ID"> id </field>
+    <field type="string" describe="装备名称">name</field>
+</bean>
+</beans>
+
+<messages>
+<message name="ResPlayerInfo" type="SC" describe="玩家信息">
+    <field type="int" describe="玩家ID"> id </field>
+    <field type="string" describe="玩家名称">name</field>
+    <list type="EquipInfo" describe="玩家装备">equips</list>
+</message>
+</messages>

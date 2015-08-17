@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defines>
+<ftypes>
+    <ftype>int</ftype>
+    <ftype>string</ftype>
+    <ftype>vector</ftype>
+    <ftype>long</ftype>
+</ftypes>
+<ctypes>
+    <ctype>SC</ctype>
+    <ctype>CS</ctype>
+    <ctype>SG</ctype>
+    <ctype>GS</ctype>
+</ctypes>
+</defines>
