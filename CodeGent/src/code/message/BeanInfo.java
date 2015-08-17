@@ -6,6 +6,7 @@
 package code.message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -75,6 +76,10 @@ public class BeanInfo {
     }
     
     public Map buildMap(){
-        return null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
+        map.put("describe", describe);
+        map.put("fields", cfields);
+        return map;
     }
 }

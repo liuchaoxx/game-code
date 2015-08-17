@@ -12,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,7 +43,7 @@ public class CodeUtil {
     public void buildFile(Map root, String ftltemp, String savepath, String filename)   
     {    
         try {    
-            Template template       = config.getTemplate("ftltemp");   
+            Template template       = config.getTemplate(ftltemp);   
             File newsDir = new File(savepath);    
             if (!newsDir.exists()) {    
                 newsDir.mkdirs();    
@@ -53,4 +56,21 @@ public class CodeUtil {
             e.printStackTrace();    
         }    
     }    
+    
+    /**
+    public static void main(String[] argv){
+        CodeUtil util = new CodeUtil("E:\\workspace\\game-code\\CodeGent\\ftl\\");
+        Map<String, Object> obj = new HashMap<String, Object>(){
+           {  
+                put("model_name","UserModel");  
+                List<Object> list = new ArrayList<Object>();
+                list.add(new Object());
+                list.add(new Object());
+                list.add(new Object());
+                put("fields", list);
+            }    
+        };
+        util.buildFile(obj, "message.ftl", "E:\\workspace\\game-code\\CodeGent\\ftl\\", "message.h");
+    }
+    */
 }

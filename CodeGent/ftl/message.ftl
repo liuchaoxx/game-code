@@ -2,9 +2,12 @@
 #define _${model_name}_H
 
  //@description  
- //@classname   ${model_name}  
-class ${model_name}  
+ //@classname   ${name}  
+class ${name}  
 {    
 public:
+    <#list fields as field >
+        hello world
+    </#list>
 private:
 }    

@@ -5,6 +5,7 @@
  */
 package code.message;
 
+import code.gent.CodeUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,7 +53,7 @@ public final class ClazzManager {
         if (!filedic.isDirectory()) {
             return false;
         }
-
+        
         File[] files = filedic.listFiles();
         if (null == files || files.length == 0) {
             return false;
@@ -61,6 +62,10 @@ public final class ClazzManager {
         SAXReader saxReader = new SAXReader();
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
+            if (!file.getName().endsWith(".xml")) {
+               continue;
+            }
+            
             Document document = saxReader.read(file);
             if (null == document) {
                 return false;
@@ -181,10 +186,11 @@ public final class ClazzManager {
     }
     
     public void codeGenerator(String path, String filename){
+        CodeUtil util = new CodeUtil("E:\\workspace\\game-code\\CodeGent\\ftl\\");
         List<BeanInfo> readBeanList = readBeanList(msg_path + filename);
         for (BeanInfo bean : readBeanList) {
             if (checkBeeanFileList(bean)) {
-                
+                util.buildFile(bean.buildMap(), "message.ftl", path, bean.getName());
             }
         }
     }

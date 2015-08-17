@@ -1,5 +1,7 @@
 package code;
 
+import code.message.ClazzManager;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,7 +18,7 @@ public class CodeMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ClazzManager.getInstance().codeGenerator("E:\\workspace\\game-code\\CodeGent\\ftl\\", "message.xml");
     }
 
 }
