@@ -16,6 +16,7 @@ public class ClassField {
     private String ptype;
     private String name;
     private String ftype;
+    private String ctype;
     private String describe;
 
     public String getPtype() {
@@ -40,6 +41,14 @@ public class ClassField {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCtype() {
+        return ctype;
+    }
+
+    public void setCtype(String ctype) {
+        this.ctype = ctype;
     }
 
     public String getDescribe() {
@@ -68,7 +77,7 @@ public class ClassField {
     public boolean read(Element ele){
         this.ptype = ele.attributeValue("type");
         this.describe = ele.attributeValue("desc");
-        this.ftype = ele.getNodeTypeName();
+        this.ftype = ele.getName();
         this.name = ele.getStringValue();
         return (null != this.name && !"".equals(name) 
                 && null != this.ptype && !"".equals(ptype) && null != this.describe && !"".equals(describe));

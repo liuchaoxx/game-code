@@ -70,6 +70,7 @@ public class BeanInfo {
             ClassField field = new ClassField();
             if (!field.read(element))
                 return false;
+            cfields.add(field);
         }
         return (null != this.name && !"".equals(name)
                 && null != this.describe && !"".equals(describe));

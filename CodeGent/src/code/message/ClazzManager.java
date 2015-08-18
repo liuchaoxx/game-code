@@ -167,9 +167,14 @@ public final class ClazzManager {
                 if (!field_type.contains(field.getPtype())) {
                     return false;
                 }
+                field.setCtype("base");
             } else if (field.getFtype().equals("list")) {
-                if (!field_type.contains(field.getPtype()) && !beans_name.contains(field.getPtype())) {
-                    return false;
+                if (field_type.contains(field.getPtype())) {
+                    field.setCtype("base");
+                }else if(beans_name.contains(field.getPtype())){
+                     field.setCtype("class");
+                }else{
+                     return false;
                 }
             } else {
                 return false;
@@ -185,12 +190,12 @@ public final class ClazzManager {
         return checkBeeanFileList(info);
     }
     
-    public void codeGenerator(String path, String filename){
-        CodeUtil util = new CodeUtil("E:\\workspace\\game-code\\CodeGent\\ftl\\");
+    public void generator(String path, String filename, String template){
+        CodeUtil util = new CodeUtil(System.getProperty("user.dir")+ "\\ftl\\");
         List<BeanInfo> readBeanList = readBeanList(msg_path + filename);
         for (BeanInfo bean : readBeanList) {
             if (checkBeeanFileList(bean)) {
-                util.buildFile(bean.buildMap(), "message.ftl", path, bean.getName());
+                util.buildFile(bean.buildMap(), template, path, bean.getName());
             }
         }
     }

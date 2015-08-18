@@ -1,0 +1,71 @@
+#ifndef _EQUIPINFO_H
+#define _EQUIPINFO_H
+           
+#include "bean.h"
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+//classname   EquipInfo  
+//description  装备信息
+class EquipInfo : public Bean
+{    
+public:
+    //description data write to session
+    virtual bool Write ( ISession& session );
+    //description data read to session
+    virtual bool Read ( ISession& session );
+    //description  get 装备ID
+    int GetId() const
+    //description  get 装备名称
+    const vector<string>& GetName() const
+private:
+    int id;
+    vector<string>  name;
+};
+
+//>-------------------------------------------------------
+//description data write to session
+bool EquipInfo::Write ( ISession& session )
+{
+    WriteChar ( session, ( CHAR* )&id, sizeof( int ) );
+    int len = name.size();
+    WriteChar ( session, ( CHAR* )&len, sizeof(int) );
+    for(int i = 0; i < len; i++)
+    {
+        WriteString ( session, this->name[i] );
+    }
+    return true;
+}
+
+//>-------------------------------------------------------
+//description data read to session
+bool EquipInfo::Read ( ISession& session )
+{
+    ReadChar ( session, ( CHAR* )&id, sizeof( int ) );
+    int len = 0;
+    this.ReadChar(session, ( CHAR* )&len, sizeof(int);
+    for(int i = 0; i < len; i++)
+    {
+        string string;
+        ReadString ( session, string );
+        this.name.push_back(string);
+    }
+    return true;
+}
+
+//>-------------------------------------------------------
+//description  get 装备ID
+int EquipInfo::GetId() const
+{
+    return this.id;
+}
+//>-------------------------------------------------------
+//description  get 装备名称
+const vector<string>& EquipInfo::GetName() const
+{
+    return this.name;
+}
+    

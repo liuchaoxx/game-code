@@ -28,15 +28,21 @@ public:
     <#list fields as field >
     //description  get ${field.describe}
     <#if field.ftype = "list">
-    const vector<${field.ptype}>& Get${field.name?cap_first}() const
+    const vector<field.ptype>& Get${field.name?cap_first}() const
     <#else>
     ${field.ptype} Get${field.name?cap_first}() const
+    </#if>
+    //description  set ${field.describe}
+    <#if field.ftype = "list">
+    void Set${field.name?cap_first}(const vector<field.ptype>& _${field.name})
+    <#else>
+    void Set${field.name?cap_first}(${field.ptype} _${field.name})
     </#if>
     </#list>   
 private:
     <#list fields as field >
     <#if field.ftype = "list">
-    vector<${field.ptype}>  ${field.name};
+    vector<field.ptype>  ${field.name};
     <#else>
     ${field.ptype} ${field.name};
     </#if>
@@ -45,7 +51,7 @@ private:
 
 //>-------------------------------------------------------
 //description data write to session
-bool ${name}::Write ( ISession& session )
+bool ${name}:: Write ( ISession& session )
 {
     <#list fields as field >
     <#if field.ftype = "list">
@@ -72,7 +78,7 @@ bool ${name}::Write ( ISession& session )
 
 //>-------------------------------------------------------
 //description data read to session
-bool ${name}::Read ( ISession& session )
+bool ${name}:: Read ( ISession& session )
 {
     <#list fields as field >
     <#if field.ftype = "list">
@@ -107,11 +113,23 @@ bool ${name}::Read ( ISession& session )
 //>-------------------------------------------------------
 //description  get ${field.describe}
 <#if field.ftype = "list">
-const vector<${field.ptype}>& ${name}::Get${field.name?cap_first}() const
+const vector<field.ptype>& ${name}:: Get${field.name?cap_first}() const
 <#else>
-${field.ptype} ${name}::Get${field.name?cap_first}() const
+${field.ptype} ${name}:: Get${field.name?cap_first}() const
 </#if>
 {
     return this.${field.name};
 }
+
+//>-------------------------------------------------------
+//description  set ${field.describe}
+<#if field.ftype = "list">
+void ${name}:: Set${field.name?cap_first}(const vector<field.ptype>& _${field.name})
+<#else>
+void ${name}:: Set${field.name?cap_first}(${field.ptype} _${field.name})
+</#if>
+{
+    this.${field.name} = _${field.name};
+}
+
 </#list>    
