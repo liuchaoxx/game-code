@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package code.ui;
+package code.set;
 
 /**
  *
  * @author Administrator
  */
 public class SetType {
-    public static final int MESSAGE_XML_PATH = 1;
-    public static final int MESSAGE_SAVE_PATH = 2;
+    public static final String MESSAGE_XML_PATH = "msg_xml_path";
+    public static final String MESSAGE_SAVE_PATH = "msg_save_path";
 }

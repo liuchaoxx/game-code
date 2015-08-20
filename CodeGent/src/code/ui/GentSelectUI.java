@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  *
  * @author Administrator
  */
-public class GentSelectUI implements GentUI{
+public class GentSelectUI implements GentUI {
 
     //定义一个计算器界面的方法 
     @Override
@@ -65,10 +65,13 @@ public class GentSelectUI implements GentUI{
                 ui.initGUI();
             }
         });
-        jb2.addActionListener(new ActionListener() {
+        jb3.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                GentUI ui = new GentSetUI();
+                jf.setVisible(false);
+                ui.initGUI();
             }
         });
     }

@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package code.ui;
+package code.set;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.json.JSONObject;
@@ -23,7 +20,7 @@ import net.sf.json.JSONObject;
 public class SetManager {
 
     private static SetManager manager = null;
-    private Map<int, Object> setmap = new HashMap<int, Object>();
+    private Map<String, Object> setmap = new HashMap<String, Object>();
 
     private SetManager() {
         loadset();
@@ -53,7 +50,7 @@ public class SetManager {
             e.printStackTrace();
         }
 
-        if (str != null || !"".equals(str)) {
+        if (str != null && !"".equals(str)) {
             JSONObject jsonObject = JSONObject.fromObject(str);
             Map<String, Object> map = (Map<String, Object>) JSONObject.toBean(jsonObject, Map.class);
             setmap.putAll(map);
@@ -73,13 +70,14 @@ public class SetManager {
             e.printStackTrace();
         }
     }
-    public void set(int type, Object obj){
+    public void set(String type, Object obj){
         if (obj != null) {
             setmap.put(type, obj);
+            saveset();
         }
     }
     
-    public static void main(String[] argv){
-        
+    public Object get(String type){
+        return setmap.containsKey(type) ? setmap.get(type):null;
     }
 }

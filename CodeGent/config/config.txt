@@ -1,0 +1,1 @@
+{"msg_save_path":"E:\\code","msg_xml_path":"E:\\code"}

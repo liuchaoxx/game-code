@@ -1,6 +1,7 @@
 package code;
 
-import code.message.ClazzManager;
+import code.set.SetManager;
+import code.set.SetType;
 import code.ui.GentSelectUI;
 
 /*
@@ -24,6 +25,7 @@ public class CodeMain {
         GentSelectUI ui = new GentSelectUI(); 
         //调用计算器界面的方法 
         ui.initGUI(); 
+        
     }
 
 }
