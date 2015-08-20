@@ -113,7 +113,7 @@ public class GentSetUI implements GentUI {
                 String xmlpath = (String) SetManager.getInstance().get(SetType.MESSAGE_XML_PATH);
                 if (xmlpath != null && !"".equals(xmlpath)) {
                     File sfile = new File(xmlpath);
-                    if (sfile != null) {
+                    if (null != sfile) {
                         jfc2.setCurrentDirectory(sfile);
                     }
                 }
