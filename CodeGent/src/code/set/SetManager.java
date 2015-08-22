@@ -10,8 +10,13 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONObject;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 /**
  *
@@ -23,7 +28,7 @@ public class SetManager {
     private Map<String, Object> setmap = new HashMap<String, Object>();
 
     private SetManager() {
-        loadset();
+        load_path_config();
     }
 
     public static SetManager getInstance() {
@@ -33,50 +38,23 @@ public class SetManager {
         return manager;
     }
 
-    public void loadset() {
-        String confpath = System.getProperty("user.dir")+ "\\config\\config.txt";
-        File file = new File(confpath);
-        assert (file == null);
-        assert (file.isDirectory());
-        String str = "";
+    private void load_path_config() {
         try {
-            FileInputStream in = new FileInputStream(file);
-            int size = in.available();
-            byte[] buffer = new byte[size];
-            in.read(buffer);
-            in.close();
-            str = new String(buffer, "GB2312");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (str != null && !"".equals(str)) {
-            JSONObject jsonObject = JSONObject.fromObject(str);
-            Map<String, Object> map = (Map<String, Object>) JSONObject.toBean(jsonObject, Map.class);
-            setmap.putAll(map);
+            String filepath ="../config/config.xml";
+            SAXReader saxReader = new SAXReader();
+            Document document = saxReader.read(new File(filepath));
+            Element root = document.getRootElement(); // 获取根元素
+            List<Element> pelements = root.elements("paths");
+            for (Element pele : pelements) {
+                List<Element> elements = pele.elements();
+                for (Element ele : elements) {
+                    setmap.put(ele.getName(), ele.getStringValue());
+                }
+            }
+        } catch (DocumentException ex) {
         }
     }
 
-    public void saveset() {
-        JSONObject jsonObject = JSONObject.fromObject(setmap);
-        String fileName = System.getProperty("user.dir")+ "\\config\\config.txt";
-        try {
-            //使用这个构造函数时，如果存在kuka.txt文件，
-            //则先把这个文件给删除掉，然后创建新的kuka.txt
-            FileWriter writer = new FileWriter(fileName);
-            writer.write(jsonObject.toString());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void set(String type, Object obj){
-        if (obj != null) {
-            setmap.put(type, obj);
-            saveset();
-        }
-    }
-    
     public Object get(String type){
         return setmap.containsKey(type) ? setmap.get(type):null;
     }

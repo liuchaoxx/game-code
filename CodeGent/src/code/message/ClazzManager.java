@@ -6,6 +6,8 @@
 package code.message;
 
 import code.gent.CodeUtil;
+import code.set.SetManager;
+import code.set.SetType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,21 +26,22 @@ public final class ClazzManager {
     private Set<String> beans_name = new HashSet<String>();
     private Set<String> field_type = new HashSet<String>();
     private Set<String> class_type = new HashSet<String>();
-    private static final String msg_path = "E:\\workspace\\game-code\\";
-    private static final String main_path = "E:\\workspace\\game-code\\main.xml";
 
     public static ClazzManager getInstance() {
         if (manager == null) {
-            manager = new ClazzManager(main_path, msg_path);
+            manager = new ClazzManager();
         }
         return manager;
     }
 
-    private ClazzManager(String mainpath, String msg_path) {
+    private ClazzManager() {
         try {
-            readClassType(mainpath);
-            readFieldType(mainpath);
-            readBeans(msg_path);
+            String msg_path = (String) SetManager.getInstance().get(SetType.MESSAGE_XML_PATH);
+            if (msg_path != null && !"".equals(msg_path)) {
+                readClassType("../config/main.xml");
+                readFieldType("../config/main.xml");
+                readBeans(msg_path);
+            }
         } catch (DocumentException ex) {
             Logger.getLogger(ClazzManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -53,7 +56,7 @@ public final class ClazzManager {
         if (!filedic.isDirectory()) {
             return false;
         }
-        
+
         File[] files = filedic.listFiles();
         if (null == files || files.length == 0) {
             return false;
@@ -63,9 +66,9 @@ public final class ClazzManager {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
             if (!file.getName().endsWith(".xml")) {
-               continue;
+                continue;
             }
-            
+
             Document document = saxReader.read(file);
             if (null == document) {
                 return false;
@@ -171,10 +174,10 @@ public final class ClazzManager {
             } else if (field.getFtype().equals("list")) {
                 if (field_type.contains(field.getPtype())) {
                     field.setCtype("base");
-                }else if(beans_name.contains(field.getPtype())){
-                     field.setCtype("class");
-                }else{
-                     return false;
+                } else if (beans_name.contains(field.getPtype())) {
+                    field.setCtype("class");
+                } else {
+                    return false;
                 }
             } else {
                 return false;
@@ -182,21 +185,27 @@ public final class ClazzManager {
         }
         return true;
     }
-    
-    public boolean checkClazzFieldList(ClazzInfo info){
+
+    public boolean checkClazzFieldList(ClazzInfo info) {
         if (!class_type.contains(info.getType())) {
             return false;
         }
         return checkBeeanFileList(info);
     }
-    
-    public void generator(String path, String filename, String template){
-        CodeUtil util = new CodeUtil(System.getProperty("user.dir")+ "\\ftl\\");
+
+    public String generator(String path, String filename, String template) {
+        String msg_path = (String) SetManager.getInstance().get(SetType.MESSAGE_XML_PATH);
+        if (msg_path == null || "".equals(msg_path)) {
+            return "xml路径错误";
+        }
+        CodeUtil util = new CodeUtil(System.getProperty("user.dir") + "\\ftl\\");
         List<BeanInfo> readBeanList = readBeanList(msg_path + filename);
         for (BeanInfo bean : readBeanList) {
-            if (checkBeeanFileList(bean)) {
-                util.buildFile(bean.buildMap(), template, path, bean.getName());
+            if (!checkBeeanFileList(bean)) {
+                return bean.getName()+"格式错误";
             }
+            util.buildFile(bean.buildMap(), template, path, bean.getName());
         }
+        return "生成成功";
     }
 }
