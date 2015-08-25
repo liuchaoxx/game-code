@@ -24,8 +24,10 @@ public class CodeMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        if (args[0].equals("msg")) {
+        if (args[0].equals("-msg")) {
             JOptionPane.showMessageDialog( null , generator_msg_file() ,"生成结果" , JOptionPane.ERROR_MESSAGE);     
+        }else if (args[0].equals("-sql")) {
+            JOptionPane.showMessageDialog( null , generatoe_sql_bean() ,"生成结果" , JOptionPane.ERROR_MESSAGE);     
         }
         
     }
@@ -52,4 +54,9 @@ public class CodeMain {
         }
         return ClazzManager.getInstance().generator(savepath, selectedFile.getName(), "message.ftl");
     }
+    
+    public static String generatoe_sql_bean(){
+        return null;
+    }
+    
 }
