@@ -5,6 +5,7 @@
  */
 package code.message;
 
+import code.common.Common;
 import code.gent.CodeUtil;
 import code.set.SetManager;
 import code.set.SetType;
@@ -38,8 +39,8 @@ public final class ClazzManager {
         try {
             String msg_path = (String) SetManager.getInstance().get(SetType.MESSAGE_XML_PATH);
             if (msg_path != null && !"".equals(msg_path)) {
-                readClassType("../config/main.xml");
-                readFieldType("../config/main.xml");
+                readClassType(Common.MAIN_XML_PATH);
+                readFieldType(Common.MAIN_XML_PATH);
                 readBeans(msg_path);
             }
         } catch (DocumentException ex) {
@@ -196,16 +197,16 @@ public final class ClazzManager {
     public String generator(String path, String filename, String template) {
         String msg_path = (String) SetManager.getInstance().get(SetType.MESSAGE_XML_PATH);
         if (msg_path == null || "".equals(msg_path)) {
-            return "xml路径错误";
+            return Common.XML_PATH_ERROR;
         }
-        CodeUtil util = new CodeUtil(System.getProperty("user.dir") + "\\ftl\\");
+        CodeUtil util = new CodeUtil(Common.FTL_PATH);
         List<BeanInfo> readBeanList = readBeanList(msg_path + filename);
         for (BeanInfo bean : readBeanList) {
             if (!checkBeeanFileList(bean)) {
-                return bean.getName()+"格式错误";
+                return bean.getName() + Common.XML_FORMAT_ERROR;
             }
             util.buildFile(bean.buildMap(), template, path, bean.getName());
         }
-        return "生成成功";
+        return Common.GENT_SUCCESS;
     }
 }

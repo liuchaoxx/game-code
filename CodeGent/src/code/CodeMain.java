@@ -3,7 +3,11 @@ package code;
 import code.message.ClazzManager;
 import code.set.SetManager;
 import code.set.SetType;
+import code.sqlbean.ExcelUtil;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,11 +28,11 @@ public class CodeMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        if (args[0].equals("-msg")) {
-            JOptionPane.showMessageDialog( null , generator_msg_file() ,"生成结果" , JOptionPane.ERROR_MESSAGE);     
-        }else if (args[0].equals("-sql")) {
+//        if (args[0].equals("-msg")) {
+//            JOptionPane.showMessageDialog( null , generator_msg_file() ,"生成结果" , JOptionPane.ERROR_MESSAGE);     
+//        }else if (args[0].equals("-sql")) {
             JOptionPane.showMessageDialog( null , generatoe_sql_bean() ,"生成结果" , JOptionPane.ERROR_MESSAGE);     
-        }
+//        }
         
     }
 
@@ -56,6 +60,15 @@ public class CodeMain {
     }
     
     public static String generatoe_sql_bean(){
+        try {
+            String excelpath = (String) SetManager.getInstance().get(SetType.BEAN_EXCEL_PATH);
+            if (excelpath == null || "".equals(excelpath)) {
+                return "excel路径错误";
+            }
+            ExcelUtil.readExcel(excelpath+"hoopchina.xls");
+        } catch (IOException ex) {
+            Logger.getLogger(CodeMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
     
