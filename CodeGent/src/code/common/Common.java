@@ -24,5 +24,7 @@ public class Common {
     public static final String GENT_SUCCESS = "生成成功";
     public static final String XML_PATH_ERROR = "xml路径错误";
     public static final String XML_FORMAT_ERROR = "格式错误";
+    public static final String EXCEL_FORMAT_ERROR = "excel格式错误";
+    public static final String EXCEL_PATH_ERROR = "excel路径错误";
 
 }

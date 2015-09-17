@@ -1,82 +1,35 @@
 // mmo_server.cpp : 定义控制台应用程序的入口点。
-//
 
 #include "stdafx.h"
-// #include "commondef.h"
-// #include "Thread.h"
-// #include <iostream>
-// #include "session.h"
-// #include "message.h"
-#include "server.h"
+#include "plist.h"
+#include<windows.h>
 
-// ISession *session = NULL;
-// 
-// class TestMessage: public Message
-// {
-// public:
-// 	virtual bool Write ( ISession& session )
-// 	{
-// 		WriteChar ( session, ( CHAR* )&id, sizeof( UINT32_T ) );
-// 		WriteString ( session, this->name );
-// 		return true;
-// 	}
-// 	virtual bool Read ( ISession& session )
-// 	{
-// 		ReadChar ( session, ( CHAR* )&id, sizeof( UINT32_T ) );
-// 		ReadString ( session, this->name );
-// 		return true;
-// 	}
-// 
-// public:
-// 	UINT32 id;
-// 	std::string name;
-// };
-// 
-// class ServerThread: public Thread
-// {
-// public:
-// 	virtual void run ()
-// 	{
-// 		while ( 1 )
-// 		{
-// 			TestMessage msg;
-// 			msg.id = 1024;
-// 			msg.name = "hello\0";
-// 			msg.Write ( *session );
-// 			Sleep ( 1000 );
-// 		}
-// 	}
-// };
-Server *server_ = NULL;
+struct Monster 
+{
+	uint id;
+};
+
 int _tmain ( int argc, _TCHAR* argv[] )
 {
-// 	if ( session == NULL )
-// 		session = new ISession ( 2048, 2048 );
-// 
-// 	Thread *th = new ServerThread ();
-// 	th->start ();
-// 	while ( 1 )
-// 	{
-// 		TestMessage msg1;
-// 		msg1.Read ( *session );
-// 		std::cout << "id ==" << msg1.id << std::endl;
-// 		std::cout << "name len ==" << msg1.name.size () << std::endl;
-// 		std::cout << "name ==" << msg1.name.c_str () << std::endl;
-// 		Sleep ( 1000 );
-// 	}
-	if (server_ == NULL)
+	IList<Monster> *list = new PList<Monster> ();
+	for ( int i = 0; i < 100; i++ )
 	{
-		server_ = new Server ( );
-		server_->SetPort ( 1001 );
-		server_->Start ();
+		Monster *mon = new Monster ();
+		mon->id = i;
+		list->add ( mon );
+		printf ( "list size == %d\n", list->size () );
 	}
-	 
-	while ( 1 )
+
+	Monster *mon = list->poll ();
+	while ( mon != NULL )
 	{
-		server_->SelectEvent ();
-		server_->HandleEvent ();
-		Sleep ( 100 );
+		printf ( "monster id = %d   list size == %d\n", mon->id, list->size ( ) );
+		mon = list->poll ();
 	}
-	return 0;
+
+	while (true)
+	{
+		Sleep ( 5000 );
+	}
 }
 

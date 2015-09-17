@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 <paths>
-    <save>E:\workspace\game-code\generator_path\</save>
+    <xsave>E:\workspace\game-code\generator_path\</xsave>
+	<esave>E:\workspace\game-code\generator_path\</esave>
     <xml>E:\workspace\game-code\message\</xml>
 	<excel>E:\workspace\game-code\excel\</excel>
 </paths>

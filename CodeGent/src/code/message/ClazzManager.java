@@ -124,16 +124,16 @@ public final class ClazzManager {
         }
     }
 
-    public List<ClazzInfo> readClazzInfo(String filepath) {
-        List<ClazzInfo> clazzs = new ArrayList<ClazzInfo>();
+    public List<Message> readClazzInfo(String filepath) {
+        List<Message> clazzs = new ArrayList<Message>();
         try {
             SAXReader saxReader = new SAXReader();
             Document document = saxReader.read(new File(filepath));
             Element root = document.getRootElement(); // 获取根元素
             List<Element> elements = root.elements("message");
             for (Element ele : elements) {
-                ClazzInfo info = new ClazzInfo();
-                if (!info.read(ele)) {
+                Message info = new Message();
+                if (!info.readXml(ele)) {
                     return null;
                 }
                 clazzs.add(info);
@@ -144,16 +144,16 @@ public final class ClazzManager {
         return clazzs;
     }
 
-    public List<BeanInfo> readBeanList(String path) {
-        List<BeanInfo> beans = new ArrayList<BeanInfo>();
+    public List<Bean> readBeanList(String path) {
+        List<Bean> beans = new ArrayList<Bean>();
         try {
             SAXReader saxReader = new SAXReader();
             Document document = saxReader.read(new File(path));
             Element root = document.getRootElement(); // 获取根元素
             List<Element> elements = root.elements("bean");
             for (Element ele : elements) {
-                BeanInfo info = new BeanInfo();
-                if (!info.read(ele)) {
+                Bean info = new Bean();
+                if (!info.readXml(ele)) {
                     return null;
                 }
                 beans.add(info);
@@ -164,7 +164,7 @@ public final class ClazzManager {
         return beans;
     }
 
-    public boolean checkBeeanFileList(BeanInfo info) {
+    public boolean checkBeeanFileList(Bean info) {
         List<ClassField> fields = info.getField();
         for (ClassField field : fields) {
             if (field.getFtype().equals("field")) {
@@ -187,25 +187,25 @@ public final class ClazzManager {
         return true;
     }
 
-    public boolean checkClazzFieldList(ClazzInfo info) {
+    public boolean checkClazzFieldList(Message info) {
         if (!class_type.contains(info.getType())) {
             return false;
         }
         return checkBeeanFileList(info);
     }
 
-    public String generator(String path, String filename, String template) {
+    public String generator_message(String path, String filename, String template) {
         String msg_path = (String) SetManager.getInstance().get(SetType.MESSAGE_XML_PATH);
         if (msg_path == null || "".equals(msg_path)) {
             return Common.XML_PATH_ERROR;
         }
         CodeUtil util = new CodeUtil(Common.FTL_PATH);
-        List<BeanInfo> readBeanList = readBeanList(msg_path + filename);
-        for (BeanInfo bean : readBeanList) {
+        List<Bean> readBeanList = readBeanList(msg_path + filename);
+        for (Bean bean : readBeanList) {
             if (!checkBeeanFileList(bean)) {
                 return bean.getName() + Common.XML_FORMAT_ERROR;
             }
-            util.buildFile(bean.buildMap(), template, path, bean.getName());
+            util.buildFile(bean.buildMap(), template, path, bean.getName()+".h");
         }
         return Common.GENT_SUCCESS;
     }

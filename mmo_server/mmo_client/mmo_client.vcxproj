@@ -81,31 +81,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\commondef.h" />
-    <ClInclude Include="..\common\iobuffer.h" />
-    <ClInclude Include="..\common\lock.h" />
-    <ClInclude Include="..\common\message\bean.h" />
-    <ClInclude Include="..\common\message\message.h" />
-    <ClInclude Include="..\common\ox_coreutil.h" />
-    <ClInclude Include="..\common\platform.h" />
-    <ClInclude Include="..\common\server.h" />
-    <ClInclude Include="..\common\ServerSocket.h" />
-    <ClInclude Include="..\common\server_adapter.h" />
-    <ClInclude Include="..\common\session.h" />
-    <ClInclude Include="..\common\Socket.h" />
-    <ClInclude Include="..\common\SocketAPI.h" />
-    <ClInclude Include="..\common\Thread.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\iobuffer.cpp" />
-    <ClCompile Include="..\common\server.cpp" />
-    <ClCompile Include="..\common\ServerSocket.cpp" />
-    <ClCompile Include="..\common\session.cpp" />
-    <ClCompile Include="..\common\Socket.cpp" />
-    <ClCompile Include="..\common\SocketAPI.cpp" />
-    <ClCompile Include="..\common\Thread.cpp" />
     <ClCompile Include="mmo_client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

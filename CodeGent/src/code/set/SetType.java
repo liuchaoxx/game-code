@@ -11,6 +11,7 @@ package code.set;
  */
 public class SetType {
     public static final String MESSAGE_XML_PATH = "xml";
-    public static final String MESSAGE_SAVE_PATH = "save";
+    public static final String MESSAGE_SAVE_PATH = "xsave";
+    public static final String EXCEL_SAVE_PATH = "esave";
     public static final String BEAN_EXCEL_PATH = "excel";
 }

@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\workspace\mmo_server\common\message;E:\workspace\mmo_server\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\com\game;..\com\game\message;..\com\game\common;..\com\game\socket;..\com\game\command;..\com\game\struct;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,35 +78,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\common\commondef.h" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\command.h" />
-    <ClInclude Include="..\common\message\bean.h" />
-    <ClInclude Include="..\common\message\message.h" />
-    <ClInclude Include="..\common\lock.h" />
-    <ClInclude Include="..\common\platform.h" />
-    <ClInclude Include="..\common\plist.h" />
-    <ClInclude Include="..\common\server.h" />
-    <ClInclude Include="..\common\ServerSocket.h" />
-    <ClInclude Include="..\common\server_adapter.h" />
-    <ClInclude Include="..\common\session.h" />
-    <ClInclude Include="..\common\iobuffer.h" />
-    <ClInclude Include="..\common\Socket.h" />
-    <ClInclude Include="..\common\SocketAPI.h" />
-    <ClInclude Include="..\common\Thread.h" />
+    <ClInclude Include="..\com\game\command\ICommand.h" />
+    <ClInclude Include="..\com\game\command\IHandler.h" />
+    <ClInclude Include="..\com\game\common\common.h" />
+    <ClInclude Include="..\com\game\message\bean.h" />
+    <ClInclude Include="..\com\game\message\message.h" />
+    <ClInclude Include="..\com\game\socket\ISession.h" />
+    <ClInclude Include="..\com\game\struct\memorypool.h" />
+    <ClInclude Include="..\com\game\struct\plist.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\iobuffer.cpp" />
-    <ClCompile Include="..\common\server.cpp" />
-    <ClCompile Include="..\common\ServerSocket.cpp" />
-    <ClCompile Include="..\common\session.cpp" />
-    <ClCompile Include="..\common\Socket.cpp" />
-    <ClCompile Include="..\common\SocketAPI.cpp" />
-    <ClCompile Include="..\common\Thread.cpp" />
     <ClCompile Include="mmo_server.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

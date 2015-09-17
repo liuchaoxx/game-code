@@ -56,16 +56,16 @@ public class CodeMain {
         if (savepath == null || "".equals(savepath)) {
              return "保存路径错误";
         }
-        return ClazzManager.getInstance().generator(savepath, selectedFile.getName(), "message.ftl");
+        return ClazzManager.getInstance().generator_message(savepath, selectedFile.getName(), "message.ftl");
     }
     
     public static String generatoe_sql_bean(){
         try {
-            String excelpath = (String) SetManager.getInstance().get(SetType.BEAN_EXCEL_PATH);
-            if (excelpath == null || "".equals(excelpath)) {
+            String savepath = (String) SetManager.getInstance().get(SetType.EXCEL_SAVE_PATH);
+            if (savepath == null || "".equals(savepath)) {
                 return "excel路径错误";
             }
-            ExcelUtil.readExcel(excelpath+"hoopchina.xls");
+            return ExcelUtil.generator_sqlbean(savepath, "hoopchina.xls", "sql_bean.ftl");
         } catch (IOException ex) {
             Logger.getLogger(CodeMain.class.getName()).log(Level.SEVERE, null, ex);
         }
